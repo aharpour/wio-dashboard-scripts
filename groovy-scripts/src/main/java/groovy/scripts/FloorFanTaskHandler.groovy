@@ -12,7 +12,7 @@ import nl.openweb.iot.wio.scheduling.ScheduledTask
 import nl.openweb.iot.wio.scheduling.SchedulingUtils
 import nl.openweb.iot.wio.scheduling.TaskContext
 
-class TaskHandler extends AbstractGroovyTaskHandler {
+class FloorFanTaskHandler extends AbstractGroovyTaskHandler {
     private static double THRESHOLD_TEMPERATURE = 22.5
 
     @Override
@@ -41,6 +41,7 @@ class TaskHandler extends AbstractGroovyTaskHandler {
         Reading reading = new Reading()
         reading.setTemperature(temperature)
         reading.setHumidity(humidity)
+        reading.setDate(new Date())
         return repository.save(reading)
     }
 }
