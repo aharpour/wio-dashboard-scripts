@@ -7,7 +7,6 @@ import nl.openweb.iot.wio.WioException
 import nl.openweb.iot.wio.domain.Node
 import nl.openweb.iot.wio.domain.grove.GroveRelay
 import nl.openweb.iot.wio.domain.grove.GroveTempHum
-import nl.openweb.iot.wio.domain.grove.GroveTempHumPro
 import nl.openweb.iot.wio.scheduling.ScheduledTask
 import nl.openweb.iot.wio.scheduling.SchedulingUtils
 import nl.openweb.iot.wio.scheduling.TaskContext
@@ -19,7 +18,7 @@ class FloorFanTaskHandler extends AbstractGroovyTaskHandler {
     ScheduledTask.TaskExecutionResult execute(Node node, TaskContext context) throws WioException {
         ScheduledTask.TaskExecutionResult result = SchedulingUtils.secondsLater((int) Math.round(period * 60))
 
-        node.getGroveByType(GroveTempHumPro.class).ifPresent({ tempHum ->
+        node.getGroveByType(GroveTempHum.class).ifPresent({ tempHum ->
             Reading reading = saveTempAndHumidity(tempHum, context)
             node.getGroveByType(GroveRelay.class).ifPresent({ relay ->
                 boolean isHot = reading.getTemperature() >= THRESHOLD_TEMPERATURE
